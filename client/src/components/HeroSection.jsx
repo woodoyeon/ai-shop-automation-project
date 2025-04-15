@@ -1,12 +1,40 @@
 import React from 'react';
-import heroImage from '../assets/hero.png';
+import UploadBox from './UploadBox';
+
+// 이미지 경로: src/assets/ 폴더 기준
+import logo from '../assets/logo.png';
+import heroImg from '../assets/hero.png';
+import img1 from '../assets/img1.jpg';
+import img2 from '../assets/img2.jpg';
+import img3 from '../assets/img3.jpg';
+import img4 from '../assets/img4.jpg';
 
 export default function HeroSection() {
   return (
-    <div className="w-1/2 flex flex-col items-center justify-center">
-      <img src={heroImage} alt="예시 이미지" className="w-2/3 mb-4" />
-      <h1 className="text-3xl font-bold text-center">이미지에서 배경을 제거하세요</h1>
-      <p className="mt-2 text-gray-600 text-sm text-center">도매 사장님을 위한 100% 자동화 프로그램</p>
-    </div>
+    <section className="flex flex-col items-center justify-center md:flex-row md:justify-center md:items-center min-h-[85vh] px-6 gap-16">
+      {/* 왼쪽: 텍스트 + 모델 이미지 */}
+      <div className="flex flex-col items-center md:items-start gap-4 md:gap-8">
+        <img src={logo} alt="로고" className="h-12" />
+        <img src={heroImg} alt="모델" className="w-48 h-48 object-cover rounded-2xl shadow-lg border-4 border-pink-200" />
+        <h1 className="text-5xl font-extrabold text-pink-600 leading-tight drop-shadow-md">
+          이미지에서<br />배경을 자동으로 제거하세요
+        </h1>
+        <p className="text-lg text-pink-400 font-semibold">상세페이지용 이미지 자동 제작!</p>
+        <button className="mt-2 px-7 py-3 rounded-full bg-gradient-to-r from-pink-400 to-yellow-300 text-white font-bold shadow hover:scale-105 transition">
+          지금 바로 시작하기
+        </button>
+      </div>
+
+      {/* 오른쪽: 업로드 박스 + 미리보기 */}
+      <div className="flex flex-col items-center">
+        <UploadBox />
+        <div className="flex gap-3 mt-6">
+          {[img1, img2, img3, img4].map((img, i) => (
+            <img key={i} src={img} alt={`샘플${i + 1}`} className="w-16 h-16 object-cover rounded-lg shadow border border-pink-100" />
+          ))}
+        </div>
+        <div className="text-xs text-gray-400 mt-2">이미지 없으신가요? 위의 예시로 테스트해보세요!</div>
+      </div>
+    </section>
   );
 }

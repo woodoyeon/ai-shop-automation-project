@@ -1,11 +1,18 @@
-// client/src/App.jsx
-import React from "react";
-import Home from "./pages/Home"; // 또는 원하는 컴포넌트
+import React from 'react';
+import Navbar from './components/Navbar';
+import HeroSection from './components/HeroSection';
+import PreviewSection from './components/PreviewSection';
+import ChatInput from './components/ChatInput';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
-      <Home /> {/* 여기에 기존 코드 컴포넌트 삽입 */}
+    <div className="bg-gray-50 min-h-screen flex flex-col">
+      <Navbar />
+      <HeroSection />
+      <ChatInput />
+      <PreviewSection />
+      <Footer />
     </div>
   );
 }
