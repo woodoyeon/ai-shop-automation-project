@@ -1,51 +1,33 @@
 import React, { useState } from 'react';
 
-export default function UploadBox() {
-  const [isDragging, setIsDragging] = useState(false);
+export default function UploadBox({ onImageUpload }) {
   const [previewUrl, setPreviewUrl] = useState(null);
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  const handleDragLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      const url = URL.createObjectURL(files[0]);
-      setPreviewUrl(url);
-    }
+    // 상태 저장 + 미리보기
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result);
+      onImageUpload(file); // 부모 컴포넌트로 전달
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
-    <div
-      className={`bg-white shadow-2xl rounded-3xl p-8 w-[340px] flex flex-col items-center text-center border border-pink-100 transition-all duration-300 ease-in-out ${
-        isDragging ? 'ring-4 ring-pink-200 scale-105' : ''
-      }`}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-    >
-      <button className="bg-gradient-to-r from-pink-400 to-blue-400 text-white px-6 py-2 rounded-full mb-4 font-bold shadow hover:scale-105 transition">
+    <div className="w-[280px] sm:w-[300px] md:w-[340px] lg:w-[360px] bg-white rounded-2xl shadow-xl p-6 text-center">
+      <label className="bg-gradient-to-r from-pink-400 to-blue-400 text-white font-semibold px-4 py-2 rounded-full mb-4 shadow hover:opacity-90 transition cursor-pointer inline-block">
         이미지 업로드
-      </button>
-      <p className="text-lg font-bold text-pink-600 mb-1">또는 파일을 드래그 하세요</p>
-      <p className="text-sm text-gray-400 mb-4">
+        <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
+      </label>
+      <p className="text-pink-500 font-semibold text-sm mb-1">또는 파일을 드래그 하세요</p>
+      <p className="text-xs text-gray-400">
         붙여넣기 또는 <span className="text-pink-400 underline cursor-pointer">URL 입력</span>
       </p>
-
       {previewUrl && (
-        <img
-          src={previewUrl}
-          alt="미리보기"
-          className="w-full max-w-[240px] mt-4 rounded-xl shadow-lg border-2 border-pink-100"
-        />
+        <img src={previewUrl} alt="미리보기" className="mt-4 w-full max-w-xs mx-auto rounded-md" />
       )}
     </div>
   );

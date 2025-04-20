@@ -1,7 +1,5 @@
 import React from 'react';
 import UploadBox from './UploadBox';
-
-// 이미지 경로: src/assets/ 폴더 기준
 import logo from '../assets/logo.png';
 import heroImg from '../assets/hero.png';
 import img1 from '../assets/img1.jpg';
@@ -11,8 +9,8 @@ import img4 from '../assets/img4.jpg';
 
 export default function HeroSection() {
   return (
-    <section className="flex flex-col items-center justify-center md:flex-row md:justify-center md:items-center min-h-[85vh] px-6 gap-16">
-      {/* 왼쪽: 텍스트 + 모델 이미지 */}
+    <section className="flex flex-col items-center justify-center md:flex-row md:justify-center md:items-center min-h-[85vh] gap-16">
+      {/* 왼쪽: 텍스트 + 이미지 */}
       <div className="flex flex-col items-center md:items-start gap-4 md:gap-8">
         <img src={logo} alt="로고" className="h-12" />
         <img src={heroImg} alt="모델" className="w-48 h-48 object-cover rounded-2xl shadow-lg border-4 border-pink-200" />
@@ -25,7 +23,7 @@ export default function HeroSection() {
         </button>
       </div>
 
-      {/* 오른쪽: 업로드 박스 + 미리보기 */}
+      {/* 오른쪽: 업로드 박스 + 샘플 미리보기 */}
       <div className="flex flex-col items-center">
         <UploadBox />
         <div className="flex gap-3 mt-6">
